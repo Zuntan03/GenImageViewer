@@ -4,6 +4,7 @@ This tool supports English. Please translate this page in your browser.
 
 生成画像ビューアは Stable Diffusion web UI が生成した画像を、自動で大きく表示するツールです。
 キーボードの ASD キーで画像を振り分けるおまけ機能もあります。
+スクリプトなので中身が見えて、安心です。
 
 ![GenImageViewer](GenImageViewer.webp)
 
