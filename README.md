@@ -12,9 +12,9 @@ This tool supports English. Please translate this page in your browser.
 Windows で GenImageViewer.bat と GenImageViewer.ps1 があれば動作します。
 
 - GenImageViewer.bat をダブルクリックすると生成画像ビューアが立ち上がります。
-	- 初回起動時に警告が表示された場合は「詳細情報」>「実行」します。![BatWarning](BatWarning.webp)
+	- 初回起動時に警告が表示された場合は「詳細情報」>「実行」します。<br>![BatWarning](BatWarning.webp)
 	- 初回起動時に Stable Diffusion web UI が画像を出力するフォルダを指定してください。通常は web UI インストール先の「stable-diffusion-webui/outputs/」を選択します。
-	- web UI で画像を生成すると、ウィンドウの大きさに合わせて画像を表示します。
+	- web UI で画像を生成すると、ウィンドウの大きさに合わせて画像を表示します。<br>![GenImageViewerUp](GenImageViewerUp.png)
 - マウスの左ドラッグで表示位置を移動できます。
 - マウスの右クリックのコンテキストメニューから様々な操作ができます。
 - マウスホイールで拡大縮小します。
@@ -42,7 +42,7 @@ Windows で GenImageViewer.bat と GenImageViewer.ps1 があれば動作しま�
 ## 他のツール
 
 - [LatentCoupleHelper](https://github.com/Zuntan03/LatentCoupleHelper)
-	- Latent Couple で好きな位置にプロンプトを置くためのツールです。タイトル画像右側に表示されているツールです。
+	- Latent Couple で好きな位置にプロンプトを置くためのツールです。タイトル画像の右側に表示されているツールです。
 - [MaiNovel](https://github.com/Zuntan03/MaiNovel)
 	- AI で生成した音声と画像で、ビジュアルノベルを作るツールです。
 
