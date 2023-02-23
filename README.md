@@ -7,6 +7,10 @@ This tool supports English. Please translate this page in your browser.
 
 ![GenImageViewer](GenImageViewer.webp)
 
+PNG 内の情報も表示できます。
+
+![GenImageViewerUp](GenImageViewerUp.png)
+
 # 使い方
 
 Windows で GenImageViewer.bat と GenImageViewer.ps1 があれば動作します。
@@ -14,7 +18,7 @@ Windows で GenImageViewer.bat と GenImageViewer.ps1 があれば動作しま�
 - GenImageViewer.bat をダブルクリックすると生成画像ビューアが立ち上がります。
 	- 初回起動時に警告が表示された場合は「詳細情報」>「実行」します。<br>![BatWarning](BatWarning.webp)
 	- 初回起動時に Stable Diffusion web UI が画像を出力するフォルダを指定してください。通常は web UI インストール先の「stable-diffusion-webui/outputs/」を選択します。
-	- web UI で画像を生成すると、ウィンドウの大きさに合わせて画像を表示します。<br>![GenImageViewerUp](GenImageViewerUp.png)
+	- web UI で画像を生成すると、ウィンドウの大きさに合わせて画像を表示します。
 - マウスの左ドラッグで表示位置を移動できます。
 - マウスの右クリックのコンテキストメニューから様々な操作ができます。
 - マウスホイールで拡大縮小します。
