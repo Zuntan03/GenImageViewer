@@ -10,6 +10,7 @@
 	backColor    = "#000000";
 	imageInfo    = $true;
 	topmost      = "Update"; # Update, Always, None
+	opacity      = 0.5;
 	scaleSens    = 1.2;
 	maxScale     = 32.0;
 	nearestScale = 4.0;
@@ -43,6 +44,7 @@ $localizedDics = @{
 		"KEY_DIST"      = "ASD キーで画像振り分け";
 		"SHOW_INFO"     = "情報表示";
 		"FIXED_WIN"     = "ウィンドウの固定";
+		"TRANS_WIN"     = "半透明ウィンドウ";
 		"TOP"           = "最前面に表示...";
 		"TOP_UPDATE"    = "更新で最前面";
 		"TOP_ALWAYS"    = "常に最前面";
@@ -59,6 +61,7 @@ $localizedDics = @{
 		"KEY_DIST"      = "ASD key to move image";
 		"SHOW_INFO"     = "Information display";
 		"FIXED_WIN"     = "Fixed window";
+		"TRANS_WIN"     = "Translucent window";
 		"TOP"           = "Topmost ...";
 		"TOP_UPDATE"    = "Update";
 		"TOP_ALWAYS"    = "Always";
@@ -99,6 +102,7 @@ class GenImageViewer {
 	$canvasMDragX = -1;
 	$canvasMDragY = -1;
 	$textArea;
+	$translucentWindow = $false;
 	$keyDownTimer;
 	$keyDownDistImage = $false;
 	$watcher;
@@ -232,6 +236,20 @@ class GenImageViewer {
 			});
 		$ctmn.Items.Add($mWfx);
 
+		$mWtw = New-Object System.Windows.Forms.ToolStripMenuItem (GetText "TRANS_WIN");
+		$mWtw.Tag = $this;
+		$mWtw.add_Click({
+				$this.Tag.translucentWindow = !$this.Tag.translucentWindow;
+				if ($this.Tag.translucentWindow) {
+					$cfg = GetConfig;
+					$this.Tag.form.Opacity = $cfg.opacity;
+				}
+				else {
+					$this.Tag.form.Opacity = 1.0;
+				}
+			});
+		$ctmn.Items.Add($mWtw);
+
 		$mTp = New-Object System.Windows.Forms.ToolStripMenuItem (GetText "TOP");
 		$mTpU = New-Object System.Windows.Forms.ToolStripMenuItem (GetText "TOP_UPDATE");
 		$mTpU.Tag = $frm;
@@ -298,6 +316,8 @@ class GenImageViewer {
 				$this.Items[$idx].Checked = $cfg.imageInfo;
 				$idx++;
 				$this.Items[$idx].Checked = $cfg.fixed;
+				$idx++;
+				$this.Items[$idx].Checked = $this.Tag.translucentWindow;
 				$idx++;
 				$this.Items[$idx].DropDownItems[0].Checked = $cfg.topmost -eq "Update";
 				$this.Items[$idx].DropDownItems[1].Checked = $cfg.topmost -eq "Always";
@@ -592,14 +612,18 @@ class GenImageViewer {
 		$stream = New-Object System.IO.MemoryStream @(, $bytes);
 		$reader = New-Object System.IO.BinaryReader $stream;
 		[void]$reader.ReadBytes(8 + 25);
-		$tEXt = $reader.ReadBytes(4);
-		[void]$reader.ReadBytes(4 + 11);
-		$paramSize = ([int]$tEXt[0] -shl 24) + ([int]$tEXt[1] -shl 16) +
-			([int]$tEXt[2] -shl 8) + $tEXt[3] - 11;
-		$param = $reader.ReadBytes($paramSize);
+		$tEXtSize = $reader.ReadBytes(4);
+		$tExt = $reader.ReadUInt32();
+		$param = "";
+		if ($tExt -eq 1951942004) {
+			[void]$reader.ReadBytes(11);
+			$paramSize = ([int]$tEXtSize[0] -shl 24) + ([int]$tEXtSize[1] -shl 16) +
+				([int]$tEXtSize[2] -shl 8) + $tEXtSize[3] - 11;
+			$param = $reader.ReadBytes($paramSize);
+			$param = [System.Text.Encoding]::UTF8.GetString($param);
+			$param = $param.Replace("`n", "`r`n");
+		}
 		$reader.Dispose();
-		$param = [System.Text.Encoding]::UTF8.GetString($param);
-		$param = $param.Replace("`n", "`r`n");
 
 		$info = "[ $($img.Width) x $($img.Height) ] $([System.IO.Path]::GetFileName($path))";
 
