@@ -52,6 +52,11 @@ Windows で GenImageViewer.bat と GenImageViewer.ps1 があれば動作しま�
 - [MaiNovel](https://github.com/Zuntan03/MaiNovel)
 	- AI で生成した音声と画像で、ビジュアルノベルを作るツールです。
 
+
+## 謝辞
+
+- [Linkr](https://github.com/Chunbear): 中国語対応、ありがとうございました。
+
 ## ライセンス
 
 [MIT License](./LICENSE.txt) です。
