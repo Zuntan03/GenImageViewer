@@ -70,6 +70,22 @@ $localizedDics = @{
 		"AUTO_FOLDER"   = "Auto-load folder selection ...";
 		"EXIT"          = "Exit";
 	};
+	"zh-CN" = @{
+		"SELECT_FOLDER" = "设置图片输出文件夹。默认位置为stable-diffusion-webui/outputs/";
+		"NEXT"          = "下一张 (F)";
+		"PREV"          = "上一张 (R)";
+		"KEY_DIST"      = "使用ASD对图片分类";
+		"SHOW_INFO"     = "显示图片信息";
+		"FIXED_WIN"     = "隐藏边框";
+		"TRANS_WIN"     = "半透明模式";
+		"TOP"           = "置顶方式 ...";
+		"TOP_UPDATE"    = "更新图片时";
+		"TOP_ALWAYS"    = "一直置顶";
+		"TOP_NONE"      = "无";
+		"AUTO"          = "自动加载";
+		"AUTO_FOLDER"   = "设置自动加载文件夹 ...";
+		"EXIT"          = "退出";
+	};
 };
 
 if ([string]::IsNullOrEmpty($config.lang)) {
