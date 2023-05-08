@@ -494,7 +494,7 @@ class GenImageViewer {
 				$this.watcher.IncludeSubdirectories = $true;
 				$this.watcher.NotifyFilter = "FileName";
 				$this.watcher.SynchronizingObject = $this.form;
-				$this.watcher.add_Renamed({ $imageViewer.SetImage($_.FullPath); });
+				$this.watcher.add_Renamed({ Start-Sleep -Milliseconds 50; $imageViewer.SetImage($_.FullPath); });
 			}
 			$this.watcher.Path = $cfg.watchPath;
 			$this.watcher.EnableRaisingEvents = $true;
@@ -631,10 +631,19 @@ class GenImageViewer {
 		$tEXtSize = $reader.ReadBytes(4);
 		$tExt = $reader.ReadUInt32();
 		$param = "";
+		# tEXt iTXt
 		if ($tExt -eq 1951942004) {
 			[void]$reader.ReadBytes(11);
 			$paramSize = ([int]$tEXtSize[0] -shl 24) + ([int]$tEXtSize[1] -shl 16) +
 				([int]$tEXtSize[2] -shl 8) + $tEXtSize[3] - 11;
+			$param = $reader.ReadBytes($paramSize);
+			$param = [System.Text.Encoding]::UTF8.GetString($param);
+			$param = $param.Replace("`n", "`r`n");
+		}
+		elseif ($tExt -eq 1951945833) {
+			[void]$reader.ReadBytes(15);
+			$paramSize = ([int]$tEXtSize[0] -shl 24) + ([int]$tEXtSize[1] -shl 16) +
+				([int]$tEXtSize[2] -shl 8) + $tEXtSize[3] - 15;
 			$param = $reader.ReadBytes($paramSize);
 			$param = [System.Text.Encoding]::UTF8.GetString($param);
 			$param = $param.Replace("`n", "`r`n");
